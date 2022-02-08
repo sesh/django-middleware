@@ -85,7 +85,7 @@ def corp_coop_coep(get_response):
 def dns_prefetch(get_response):
     def middleware(request):
         response = get_response(request)
-        response.headers[" X-DNS-Prefetch-Control"] = "off"
+        response.headers["X-DNS-Prefetch-Control"] = "off"
         return response
 
     return middleware
