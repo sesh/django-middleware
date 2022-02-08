@@ -16,8 +16,6 @@ def set_remote_addr(get_response):
 
 def permissions_policy(get_response):
     def middleware(request):
-        # logger.info("Remote IP: " + request.META["REMOTE_ADDR"])
-
         response = get_response(request)
         response.headers[
             "Permissions-Policy"
