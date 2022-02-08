@@ -16,6 +16,8 @@ def set_remote_addr(get_response):
 
 def permissions_policy(get_response):
     def middleware(request):
+        # logger.info("Remote IP: " + request.META["REMOTE_ADDR"])
+
         response = get_response(request)
         response.headers[
             "Permissions-Policy"
@@ -30,7 +32,7 @@ def csp(get_response):
         response = get_response(request)
         response.headers[
             "Content-Security-Policy"
-        ] = "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; child-src 'self'; form-action 'self'"
+        ] = "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; child-src 'self'; form-action 'self'; report-uri https://brntn.report-uri.com/r/d/csp/enforce"
         return response
 
     return middleware
@@ -50,7 +52,7 @@ def expect_ct(get_response):
         response = get_response(request)
         response.headers[
             "Expect-CT"
-        ] = 'enforce, max-age=30m'
+        ] = 'enforce, max-age=30m report-uri="https://brntn.report-uri.com/r/d/ct/enforce"'
         return response
 
     return middleware
@@ -75,6 +77,15 @@ def corp_coop_coep(get_response):
         response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
         response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
         response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
+        return response
+
+    return middleware
+
+
+def dns_prefetch(get_response):
+    def middleware(request):
+        response = get_response(request)
+        response.headers[" X-DNS-Prefetch-Control"] = "off"
         return response
 
     return middleware
