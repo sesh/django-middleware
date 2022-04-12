@@ -30,7 +30,7 @@ def csp(get_response):
         response = get_response(request)
         response.headers[
             "Content-Security-Policy"
-        ] = "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; child-src 'self'; form-action 'self'; report-uri https://brntn.report-uri.com/r/d/csp/enforce"
+        ] = "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; child-src 'self'; form-action 'self'"
         return response
 
     return middleware
@@ -50,7 +50,7 @@ def expect_ct(get_response):
         response = get_response(request)
         response.headers[
             "Expect-CT"
-        ] = 'enforce, max-age=30m report-uri="https://brntn.report-uri.com/r/d/ct/enforce"'
+        ] = 'enforce, max-age=30m'
         return response
 
     return middleware
