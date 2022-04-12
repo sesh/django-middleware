@@ -1,3 +1,9 @@
+"""
+This is free and unencumbered software released into the public domain.
+
+https://github.com/sesh/django-middleware
+"""
+
 import logging
 
 logger = logging.getLogger("django")
