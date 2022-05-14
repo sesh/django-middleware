@@ -34,7 +34,7 @@ def permissions_policy(get_response):
 def referrer_policy(get_response):
     def middleware(request):
         response = get_response(request)
-        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["Referrer-Policy"] = "same-origin"  # using no-referrer breaks CSRF
         return response
 
     return middleware
